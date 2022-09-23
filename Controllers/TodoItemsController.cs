@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CSharp.Web.API.Models;
+using NuGet.Protocol;
 
 namespace CSharp.Web.API.Controllers
 {
@@ -24,10 +25,10 @@ namespace CSharp.Web.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
         {
-          if (_context.TodoItems == null)
-          {
-              return NotFound();
-          }
+          //if (_context.TodoItems == null)
+          //{
+          //    return NotFound();
+          //}
             return await _context.TodoItems.ToListAsync();
         }
 
@@ -35,18 +36,18 @@ namespace CSharp.Web.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TodoItem>> GetTodoItem(long id)
         {
-          if (_context.TodoItems == null)
-          {
-              return NotFound();
-          }
-            var todoItem = await _context.TodoItems.FindAsync(id);
+	        //if (_context.TodoItems == null)
+	        //{
+		       // return NotFound();
+	        //}
+	        var todoItem = await _context.TodoItems.FindAsync(id);
 
-            if (todoItem == null)
-            {
-                return NotFound();
-            }
+	        if (todoItem == null)
+	        {
+	            return NotFound();
+	        }
 
-            return todoItem;
+	        return todoItem;
         }
 
         // PUT: api/TodoItems/5
@@ -85,10 +86,11 @@ namespace CSharp.Web.API.Controllers
         [HttpPost]
         public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
         {
-          if (_context.TodoItems == null)
-          {
-              return Problem("Entity set 'TodoContext.TodoItems'  is null.");
-          }
+            Console.WriteLine("HTTP POST TodoItem: " + todoItem.ToJson());
+          //if (_context.TodoItems == null)
+          //{
+          //    return Problem("Entity set 'TodoContext.TodoItems'  is null.");
+          //}
             _context.TodoItems.Add(todoItem);
             await _context.SaveChangesAsync();
 
@@ -100,10 +102,10 @@ namespace CSharp.Web.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodoItem(long id)
         {
-            if (_context.TodoItems == null)
-            {
-                return NotFound();
-            }
+            //if (_context.TodoItems == null)
+            //{
+            //    return NotFound();
+            //}
             var todoItem = await _context.TodoItems.FindAsync(id);
             if (todoItem == null)
             {
