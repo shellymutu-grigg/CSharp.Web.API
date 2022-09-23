@@ -13,15 +13,15 @@ namespace CSharp.Web.API.Models
 		public string? Name { get; set; }
 		public bool IsComplete { get; set; }
 
-		static Boolean IsADigitAndNotWhiteSpace(string toValidate)
-		{
-			return toValidate.All(char.IsDigit);
-		}
+		//static Boolean IsADigitAndNotWhiteSpace(string toValidate)
+		//{
+		//	return toValidate.All(char.IsDigit);
+		//}
 
 		static Boolean IsOnlyAllowableCharacters(string toValidate)
 		{
-			Console.WriteLine("\n Regex check: " + Regex.IsMatch(toValidate, "^[a-zA-z0-9\\s\\d?!*]*$"));
-			return Regex.IsMatch(toValidate, "^[a-zA-z0-9\\s\\d?!*]*$");
+			Console.WriteLine("\n Regex check: " + Regex.IsMatch(toValidate, "^[a-zA-z0-9\\s\\d!@$%&()?]*$"));
+			return Regex.IsMatch(toValidate, "^[a-zA-z0-9\\s\\d!@$%&()?]*$");
 		}
 
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
