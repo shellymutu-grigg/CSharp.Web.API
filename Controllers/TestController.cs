@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CSharp.Web.API.Controllers;
 
@@ -13,9 +14,15 @@ public class TestController : ControllerBase
 	}
 
 	[HttpPost]
-	public string PostEndpoint()
+	public IActionResult PostEndpoint(Input input)
 	{
-		return "complete";
+		//ModelState.AddModelError("Name", "Is required");
+		if (!ModelState.IsValid)
+		{
+			return BadRequest(ModelState); //400 return code
+		}
+
+		return Ok(input?.Name);
 	}
 
 	[HttpGet]
@@ -30,4 +37,11 @@ public class TestController : ControllerBase
 	{
 		return "Fun and games 02";
 	}
+}
+
+public class Input
+{
+	[Required]
+	[]
+	public string Name { get; set; }
 }
